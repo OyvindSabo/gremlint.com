@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import { inputTextColor } from '../styleVariables';
 
@@ -21,7 +22,12 @@ const QueryInputTextArea = styled.textarea`
   box-sizing: border-box;
 `;
 
-const QueryInput = ({ onChange, value }) => (
+type QueryInputProps = {
+  onChange: (e: React.FormEvent<HTMLTextAreaElement>) => void;
+  value: string;
+};
+
+const QueryInput = ({ onChange, value }: QueryInputProps) => (
   <QueryInputWrapper>
     <QueryInputTextArea onChange={onChange} value={value} rows={25} />
   </QueryInputWrapper>

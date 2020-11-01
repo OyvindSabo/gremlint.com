@@ -1,3 +1,4 @@
+import React from 'react';
 import styled, { css } from 'styled-components';
 import { HTMLAttributes } from 'react';
 import { textColor } from '../styleVariables';

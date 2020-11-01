@@ -88,4 +88,4 @@ const LoadingAnimation = ({ onLoadingComplete }: LoadingAnimationProps) => {
   );
 };
 
-module.exports = LoadingAnimation;
+export default LoadingAnimation;

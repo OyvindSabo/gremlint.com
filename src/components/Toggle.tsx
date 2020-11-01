@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import {
   borderColor,
@@ -29,7 +30,7 @@ const Option = styled.span<{ $width: string; $height: string }>`
   text-align: center;
 `;
 
-const SelectedOption = styled.span<{ $checked }>`
+const SelectedOption = styled.span<{ $checked: boolean }>`
   background: ${white};
   cursor: pointer;
   display: inline-block;

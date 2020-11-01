@@ -6,22 +6,20 @@ const createReducedState = <T>({
   routines,
 }: CreateReducedStateProps<T>) => {
   let state = initialState;
-  let subscribedElements = [];
-  let changeListeners = [];
+  let changeListeners: ChangeListener<T>[] = [];
 
   Object.entries(reducers).forEach(([action, reducer]) => {
-    window.addEventListener(action, (event: CustomEvent) => {
+    window.addEventListener(action, ((event: CustomEvent) => {
       const nextState = reducer(state, event.detail);
       state = nextState;
-      subscribedElements.forEach((subscriber) => subscriber.update());
       changeListeners.forEach((changeListener) => changeListener(state));
-    });
+    }) as EventListener);
   });
 
   Object.entries(routines).forEach(([action, routine]) => {
-    window.addEventListener(action, (event: CustomEvent) => {
+    window.addEventListener(action, ((event: CustomEvent) => {
       routine(state, event.detail);
-    });
+    }) as EventListener);
   });
 
   const addChangeListener = (changeListenerToBeAdded: ChangeListener<T>) => {

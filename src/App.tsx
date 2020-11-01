@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import styled from 'styled-components';
+import { useRouter } from 'sharp-router';
+import router from './router';
+import FadeIn from './components/FadeIn';
+import Navigator from './components/Navigator';
+import QueryFormatter from './views/QueryFormatter';
+import StyleGuide from './views/StyleGuide';
+import LoadingAnimation from './components/LoadingAnimation';
 
-function App() {
+const ViewWrapper = styled.div`
+  width: min(800px, 100vw);
+  margin-left: calc(50vw - min(400px, 50vw));
+`;
+
+const App = () => {
+  const { matchedRoute } = useRouter(router);
+  const [loadingComplete, setLoadingComplete] = useState(false);
+  if (!loadingComplete)
+    return (
+      <LoadingAnimation onLoadingComplete={() => setLoadingComplete(true)} />
+    );
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <FadeIn>
+      <div>
+        <Navigator matchedRoute={matchedRoute} />
+        <div>
+          <ViewWrapper>
+            {matchedRoute === '/' ? (
+              <QueryFormatter />
+            ) : matchedRoute === '/style-guide' ? (
+              <StyleGuide />
+            ) : null}
+          </ViewWrapper>
+        </div>
+      </div>
+    </FadeIn>
   );
-}
+};
 
 export default App;

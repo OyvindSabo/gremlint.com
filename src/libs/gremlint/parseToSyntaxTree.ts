@@ -1,3 +1,4 @@
+import { GremlinSyntaxTree } from './types';
 import { last, pipe } from './utils';
 
 const tokenizeOnTopLevelPunctuation = (query: string) => {
@@ -212,7 +213,7 @@ const getMethodTokenAndArgumentTokensFromMethodInvocation = (token: string) => {
   };
 };
 
-export const parseToSyntaxTree = (query) => {
+export const parseToSyntaxTree = (query: string): GremlinSyntaxTree => {
   const tokens = tokenizeOnTopLevelPunctuation(query);
   if (tokens.length === 1) {
     const token = tokens[0];

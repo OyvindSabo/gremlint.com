@@ -1,8 +1,7 @@
+import React from 'react';
 import styled from 'styled-components';
 import NavigationButton from './NavigationButton';
-import router from '../router';
 import { white } from '../styleVariables';
-import { useRouter } from 'sharp-router';
 
 const NavigatorWrapper = styled.div`
   background: ${white};
@@ -23,27 +22,28 @@ const Spacer = styled.div`
   height: 40px;
 `;
 
-const Navigator = () => {
-  const { matchedRoute } = useRouter(router);
-  return (
-    <div>
-      <NavigatorWrapper>
-        <NavigatorCenterContainer>
-          <NavigationButton
-            isSelected={matchedRoute === '/'}
-            label="Query formatter"
-            href="#/"
-          />
-          <NavigationButton
-            isSelected={matchedRoute === '/style-guide'}
-            label="Style guide"
-            href="#/style-guide"
-          />
-        </NavigatorCenterContainer>
-      </NavigatorWrapper>
-      <Spacer />
-    </div>
-  );
+type NavigatorProps = {
+  matchedRoute: string;
 };
 
-module.exports = Navigator;
+const Navigator = ({ matchedRoute }: NavigatorProps) => (
+  <div>
+    <NavigatorWrapper>
+      <NavigatorCenterContainer>
+        <NavigationButton
+          isSelected={matchedRoute === '/'}
+          label="Query formatter"
+          href="#/"
+        />
+        <NavigationButton
+          isSelected={matchedRoute === '/style-guide'}
+          label="Style guide"
+          href="#/style-guide"
+        />
+      </NavigatorCenterContainer>
+    </NavigatorWrapper>
+    <Spacer />
+  </div>
+);
+
+export default Navigator;
