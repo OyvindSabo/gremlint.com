@@ -260,7 +260,7 @@ g.V().
     example: `// Bad - Use single quotes where possible
 g.V().has("Movie", "name", "It's a wonderful life")
 // Bad - Escaped single quotes are even worse than double quotes
-g.V().has('Movie', 'name', 'It\'s a wonderful life')
+g.V().has('Movie', 'name', 'It\\'s a wonderful life')
 // Good
 g.V().has('Movie', 'name', "It's a wonderful life")`,
   },
