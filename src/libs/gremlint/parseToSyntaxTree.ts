@@ -1,4 +1,4 @@
-import { last, pipe } from "../simple-fp";
+import { last, pipe } from "./utils";
 
 const tokenizeOnTopLevelPunctuation = (query: string) => {
   let word = '';
