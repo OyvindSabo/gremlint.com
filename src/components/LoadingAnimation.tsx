@@ -40,7 +40,11 @@ const Image = styled.img<{ $opacity: number }>`
   transform: translate(-50%, 0);
 `;
 
-const LoadingAnimation = ({ onLoadingComplete }) => {
+type LoadingAnimationProps = {
+  onLoadingComplete: VoidFunction;
+};
+
+const LoadingAnimation = ({ onLoadingComplete }: LoadingAnimationProps) => {
   const [loadingCompletion, setLoadingCompletion] = useState(0);
   const [coloredImageHasLoaded, setColoredImageHasLoaded] = useState(false);
   const [grayscaleImageHasLoaded, setGrayscaleImageHasLoaded] = useState(false);
