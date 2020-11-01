@@ -63,7 +63,7 @@ const LoadingAnimation = ({ onLoadingComplete }: LoadingAnimationProps) => {
       loadingCompletion === 0 ? 250 : 10
     );
   };
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(load, []);
 
   return (
