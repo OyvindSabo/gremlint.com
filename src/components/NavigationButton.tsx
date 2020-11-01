@@ -14,7 +14,7 @@ const NavigationButtonWrapper = styled.span`
   width: 160px;
 `;
 
-const NavigationButtonLink = styled.a<{ $isSelected }>`
+const NavigationButtonLink = styled.a<{ $isSelected: boolean }>`
   text-decoration: none;
   display: inline-block;
   height: 20px;
