@@ -1,8 +1,10 @@
 export type GremlintConfig = {
   indentation: number;
+  // TODO: Finf out if the two properties below are needed here
   shouldEndWithDot: boolean;
   shouldStartWithDot: boolean;
   maxLineLength: number;
+  shouldPlaceDotsAfterLineBreaks: boolean;
 };
 
 export type GremlinBaseSyntaxTree = {
@@ -11,10 +13,12 @@ export type GremlinBaseSyntaxTree = {
   indentation: number;
 };
 
+export type GremlinStepGroup = { steps: GremlinSyntaxTree[] };
+
 export type GremlinTraversalSyntaxTree = GremlinBaseSyntaxTree & {
   type: 'traversal';
   steps: GremlinSyntaxTree[];
-  stepGroups: { steps: GremlinSyntaxTree[] }[];
+  stepGroups: GremlinStepGroup[];
 };
 
 export type GremlinMethodSyntaxTree = GremlinBaseSyntaxTree & {

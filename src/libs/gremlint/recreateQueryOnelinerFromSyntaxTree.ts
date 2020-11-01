@@ -1,8 +1,19 @@
-import { GremlinSyntaxTree } from './types';
+import {
+  GremlinMethodSyntaxTree,
+  GremlinStringSyntaxTree,
+  GremlinTraversalSyntaxTree,
+  GremlinWordSyntaxTree,
+} from './types';
 import { spaces } from './utils';
 
+type GremlinOnelinerSyntaxTree =
+  | Pick<GremlinTraversalSyntaxTree, 'type' | 'steps'>
+  | Pick<GremlinMethodSyntaxTree, 'type' | 'method' | 'arguments'>
+  | Pick<GremlinStringSyntaxTree, 'type' | 'string'>
+  | Pick<GremlinWordSyntaxTree, 'type' | 'word'>;
+
 const recreateQueryOnelinerFromSyntaxTree = (indentation: number = 0) => (
-  syntaxTree: GremlinSyntaxTree,
+  syntaxTree: GremlinOnelinerSyntaxTree,
 ) => {
   switch (syntaxTree.type) {
     case 'traversal':
