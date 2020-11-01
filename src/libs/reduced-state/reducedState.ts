@@ -1,4 +1,4 @@
-import { CreateReducedStateProps } from './types';
+import { ChangeListener, CreateReducedStateProps } from './types';
 
 const createReducedState = <T>({
   initialState,
@@ -24,22 +24,19 @@ const createReducedState = <T>({
     });
   });
 
-  const getState = () => state;
-
-  const provider = (getComponent) => {
-    const providedComponent = (...props) => {
-      const htmlElement = getComponent(getState)(...props);
-      subscribedElements = [...subscribedElements, htmlElement];
-      return htmlElement;
-    };
-    return providedComponent;
+  const addChangeListener = (changeListenerToBeAdded: ChangeListener<T>) => {
+    changeListeners = [...changeListeners, changeListenerToBeAdded];
   };
 
-  const addChangeListener = (changeListener) => {
-    changeListeners = [...changeListeners, changeListener];
+  const removeChangeListener = (
+    changeListenerToBeRemoved: ChangeListener<T>,
+  ) => {
+    changeListeners = changeListeners.filter(
+      (changeListener) => changeListener !== changeListenerToBeRemoved,
+    );
   };
 
-  return { provider, getState, addChangeListener };
+  return { state, addChangeListener, removeChangeListener };
 };
 
 export default createReducedState;
