@@ -1,6 +1,10 @@
-import { CreateReducedStateProps } from "./types";
+import { CreateReducedStateProps } from './types';
 
-const createReducedState = <T>({ initialState, reducers, routines }: CreateReducedStateProps<T>) => {
+const createReducedState = <T>({
+  initialState,
+  reducers,
+  routines,
+}: CreateReducedStateProps<T>) => {
   let state = initialState;
   let subscribedElements = [];
   let changeListeners = [];

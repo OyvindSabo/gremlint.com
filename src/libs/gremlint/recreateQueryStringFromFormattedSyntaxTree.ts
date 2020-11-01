@@ -1,13 +1,15 @@
-import { GremlinSyntaxTree } from "./types";
-import { spaces } from "./utils";
+import { GremlinSyntaxTree } from './types';
+import { spaces } from './utils';
 
-export const recreateQueryStringFromFormattedSyntaxTree = (syntaxTree: GremlinSyntaxTree) => {
+export const recreateQueryStringFromFormattedSyntaxTree = (
+  syntaxTree: GremlinSyntaxTree,
+) => {
   if (syntaxTree.type === 'traversal') {
     return syntaxTree.stepGroups
       .map((stepGroup) =>
         stepGroup.steps
           .map(recreateQueryStringFromFormattedSyntaxTree)
-          .join('.')
+          .join('.'),
       )
       .join('\n');
   }
@@ -18,7 +20,7 @@ export const recreateQueryStringFromFormattedSyntaxTree = (syntaxTree: GremlinSy
         recreateQueryStringFromFormattedSyntaxTree(syntaxTree.method) + '(',
         syntaxTree.argumentGroups
           .map((args) =>
-            args.map(recreateQueryStringFromFormattedSyntaxTree).join(', ')
+            args.map(recreateQueryStringFromFormattedSyntaxTree).join(', '),
           )
           .join(',\n') +
           ')' +

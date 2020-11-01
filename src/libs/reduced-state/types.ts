@@ -6,4 +6,4 @@ export type CreateReducedStateProps<T> = {
   initialState: T;
   reducers: Record<string, Reducer<T>>;
   routines: Record<string, Routine<T>>;
-}
+};

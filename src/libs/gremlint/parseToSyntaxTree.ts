@@ -1,4 +1,4 @@
-import { last, pipe } from "./utils";
+import { last, pipe } from './utils';
 
 const tokenizeOnTopLevelPunctuation = (query: string) => {
   let word = '';
@@ -191,7 +191,7 @@ const isMethodInvocation = (token: string) => {
   return pipe(
     tokenizeOnTopLevelParentheses,
     last,
-    isWrappedInParentheses
+    isWrappedInParentheses,
   )(token);
 };
 
@@ -207,7 +207,7 @@ const getMethodTokenAndArgumentTokensFromMethodInvocation = (token: string) => {
     methodToken: tokens.slice(0, -1).join(''),
     argumentTokens: pipe(
       trimParentheses,
-      tokenizeOnTopLevelComma
+      tokenizeOnTopLevelComma,
     )(tokens.slice(-1)[0]),
   };
 };

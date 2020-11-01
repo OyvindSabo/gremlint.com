@@ -1,8 +1,8 @@
-import { GremlinSyntaxTree } from "./types";
-import { spaces } from "./utils";
+import { GremlinSyntaxTree } from './types';
+import { spaces } from './utils';
 
 const recreateQueryOnelinerFromSyntaxTree = (indentation: number = 0) => (
-  syntaxTree: GremlinSyntaxTree
+  syntaxTree: GremlinSyntaxTree,
 ) => {
   switch (syntaxTree.type) {
     case 'traversal':

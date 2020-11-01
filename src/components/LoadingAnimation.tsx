@@ -60,7 +60,7 @@ const LoadingAnimation = ({ onLoadingComplete }: LoadingAnimationProps) => {
           setTimeout(onLoadingComplete, 250);
         }
       },
-      loadingCompletion === 0 ? 250 : 10
+      loadingCompletion === 0 ? 250 : 10,
     );
   };
   // eslint-disable-next-line react-hooks/exhaustive-deps
