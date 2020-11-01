@@ -19,4 +19,4 @@ const routines = {
   [SET_SHOULD_PLACE_DOTS_AFTER_LINE_BREAKS]: handleSetShouldPlaceDotsAfterLineBreaks,
 };
 
-module.exports = routines;
+export default routines;
