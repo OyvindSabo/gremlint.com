@@ -22,4 +22,4 @@ const Title = ({ children }: HTMLAttributes<HTMLDivElement>) => (
   </TitleWrapper>
 );
 
-module.exports = Title;
+export default Title;

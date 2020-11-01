@@ -22,4 +22,4 @@ const Paragraph = ({ children }: HTMLAttributes<HTMLSpanElement>) => (
   </ParagraphWrapper>
 );
 
-module.exports = Paragraph;
+export default Paragraph;

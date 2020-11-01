@@ -38,7 +38,7 @@ const CodeRuler = styled.div<{ $maxLineLength: number }>`
 `;
 
 type CodePreviewProps = {
-  maxLineLength: number;
+  maxLineLength?: number;
 } & HTMLAttributes<HTMLSpanElement>;
 
 const CodePreview = ({ maxLineLength, children }: CodePreviewProps) => (
@@ -50,4 +50,4 @@ const CodePreview = ({ maxLineLength, children }: CodePreviewProps) => (
   </CodePreviewWrapper>
 );
 
-module.exports = CodePreview;
+export default CodePreview;
