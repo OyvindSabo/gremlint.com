@@ -12,12 +12,14 @@ export type GremlinBaseSyntaxTree = {
 
 export type GremlinTraversalSyntaxTree = GremlinBaseSyntaxTree & {
   type: 'traversal';
+  steps: GremlinSyntaxTree[];
   stepGroups: ({ steps: GremlinSyntaxTree[] })[];
 }
 
 export type GremlinMethodSyntaxTree = GremlinBaseSyntaxTree & {
   type: 'method';
   method: GremlinSyntaxTree;
+  arguments: GremlinSyntaxTree[];
   argumentGroups: GremlinSyntaxTree[][];
   argumentsShouldStartOnNewLine: boolean;
 }
