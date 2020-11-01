@@ -2,6 +2,7 @@ export type GremlintConfig = {
   indentation: number;
   shouldEndWithDot: boolean;
   shouldStartWithDot: boolean;
+  maxLineLength: number;
 };
 
 export type GremlinBaseSyntaxTree = {
@@ -39,3 +40,7 @@ export type GremlinSyntaxTree =
   | GremlinMethodSyntaxTree
   | GremlinStringSyntaxTree
   | GremlinWordSyntaxTree;
+
+export type GremlinSyntaxTreeFormatter = (
+  config: GremlintConfig,
+) => (syntaxTree: GremlinSyntaxTree) => GremlinSyntaxTree;
