@@ -1,6 +1,6 @@
-import { GremlinSyntaxTree, GremlintConfig } from "../types";
+import { GremlintConfig, GremlinWordSyntaxTree } from "../types";
 
-export const formatWord = (config: GremlintConfig) => (syntaxTree: GremlinSyntaxTree) => {
+export const formatWord = (config: GremlintConfig) => (syntaxTree: GremlinWordSyntaxTree) => {
   return {
     type: 'word',
     word: syntaxTree.word,
