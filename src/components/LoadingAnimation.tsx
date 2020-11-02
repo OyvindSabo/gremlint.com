@@ -49,7 +49,7 @@ const LoadingAnimation = ({ onLoadingComplete }: LoadingAnimationProps) => {
   const [coloredImageHasLoaded, setColoredImageHasLoaded] = useState(false);
   const [grayscaleImageHasLoaded, setGrayscaleImageHasLoaded] = useState(false);
 
-  const load = () => {
+  useEffect(() => {
     setTimeout(
       () => {
         if (loadingCompletion < 100) {
@@ -62,9 +62,12 @@ const LoadingAnimation = ({ onLoadingComplete }: LoadingAnimationProps) => {
       },
       loadingCompletion === 0 ? 250 : 10,
     );
-  };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(load, []);
+  }, [
+    loadingCompletion,
+    coloredImageHasLoaded,
+    grayscaleImageHasLoaded,
+    onLoadingComplete,
+  ]);
 
   return (
     <LoadingAnimationWrapper>
