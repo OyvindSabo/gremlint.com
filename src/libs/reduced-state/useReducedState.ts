@@ -10,7 +10,7 @@ export const useReducedState = <T>(reducedState: ReducedState<T>) => {
     };
     reducedState.addChangeListener(changeListener);
     return () => reducedState.removeChangeListener(changeListener);
-  }, []);
+  }, [reducedState]);
 
   return state;
 };
