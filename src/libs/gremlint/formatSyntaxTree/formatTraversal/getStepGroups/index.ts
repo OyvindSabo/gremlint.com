@@ -18,7 +18,7 @@ export const getStepGroups = (
   formatSyntaxTree: GremlinSyntaxTreeFormatter,
   steps: GremlinSyntaxTree[],
   config: GremlintConfig,
-) => {
+): GremlinStepGroup[] => {
   const { stepGroups } = steps.reduce(
     ({ stepsInStepGroup, stepGroups }, step, index, steps) => {
       const isFirstStepInStepGroup = !stepsInStepGroup.length;
