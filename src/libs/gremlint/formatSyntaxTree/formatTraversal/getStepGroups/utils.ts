@@ -1,11 +1,11 @@
-import { GremlinSyntaxTree } from '../../../types';
+import { GremlinSyntaxTree, GremlinTokenType } from '../../../types';
 
 export const isTraversalSource = (step: GremlinSyntaxTree) =>
-  step.type === 'word' && step.word === 'g';
+  step.type === GremlinTokenType.Word && step.word === 'g';
 
 export const isModulator = (step: GremlinSyntaxTree) =>
-  step.type === 'method' &&
-  step.method.type === 'word' &&
+  step.type === GremlinTokenType.Method &&
+  step.method.type === GremlinTokenType.Word &&
   [
     'as',
     'as_',

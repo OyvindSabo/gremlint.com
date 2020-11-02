@@ -1,4 +1,4 @@
-import { GremlinSyntaxTree } from './types';
+import { GremlinTokenType, UnformattedGremlinSyntaxTree } from './types';
 import { last, pipe } from './utils';
 
 const tokenizeOnTopLevelPunctuation = (query: string) => {
@@ -213,7 +213,9 @@ const getMethodTokenAndArgumentTokensFromMethodInvocation = (token: string) => {
   };
 };
 
-export const parseToSyntaxTree = (query: string): GremlinSyntaxTree => {
+export const parseToSyntaxTree = (
+  query: string,
+): UnformattedGremlinSyntaxTree => {
   const tokens = tokenizeOnTopLevelPunctuation(query);
   if (tokens.length === 1) {
     const token = tokens[0];
@@ -223,24 +225,24 @@ export const parseToSyntaxTree = (query: string): GremlinSyntaxTree => {
         argumentTokens,
       } = getMethodTokenAndArgumentTokensFromMethodInvocation(token);
       return {
-        type: 'method',
+        type: GremlinTokenType.Method,
         method: parseToSyntaxTree(methodToken),
         arguments: argumentTokens.map(parseToSyntaxTree),
       };
     }
     if (isString(token)) {
       return {
-        type: 'string',
+        type: GremlinTokenType.String,
         string: token,
       };
     }
     return {
-      type: 'word',
+      type: GremlinTokenType.Word,
       word: token,
     };
   }
   return {
-    type: 'traversal',
+    type: GremlinTokenType.Traversal,
     steps: tokens.map(parseToSyntaxTree),
   };
 };

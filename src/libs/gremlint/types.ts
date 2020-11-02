@@ -13,16 +13,50 @@ export type GremlinBaseSyntaxTree = {
   indentation: number;
 };
 
+export enum GremlinTokenType {
+  Method = 'METHOD',
+  String = 'STRING',
+  Word = 'WORD',
+  Traversal = 'TRAVERSAL',
+}
+
+export type UnformattedGremlinMethodSyntaxTree = {
+  type: GremlinTokenType.Method;
+  method: UnformattedGremlinSyntaxTree;
+  arguments: UnformattedGremlinSyntaxTree[];
+};
+
+export type UnformattedGremlinStringSyntaxTree = {
+  type: GremlinTokenType.String;
+  string: string;
+};
+
+export type UnformattedGremlinWordSyntaxTree = {
+  type: GremlinTokenType.Word;
+  word: string;
+};
+
+export type UnformattedGremlinTraversalSyntaxTree = {
+  type: GremlinTokenType.Traversal;
+  steps: UnformattedGremlinSyntaxTree[];
+};
+
+export type UnformattedGremlinSyntaxTree =
+  | UnformattedGremlinMethodSyntaxTree
+  | UnformattedGremlinStringSyntaxTree
+  | UnformattedGremlinWordSyntaxTree
+  | UnformattedGremlinTraversalSyntaxTree;
+
 export type GremlinStepGroup = { steps: GremlinSyntaxTree[] };
 
 export type GremlinTraversalSyntaxTree = GremlinBaseSyntaxTree & {
-  type: 'traversal';
+  type: GremlinTokenType.Traversal;
   steps: GremlinSyntaxTree[];
   stepGroups: GremlinStepGroup[];
 };
 
 export type GremlinMethodSyntaxTree = GremlinBaseSyntaxTree & {
-  type: 'method';
+  type: GremlinTokenType.Method;
   method: GremlinSyntaxTree;
   arguments: GremlinSyntaxTree[];
   argumentGroups: GremlinSyntaxTree[][];
@@ -30,12 +64,12 @@ export type GremlinMethodSyntaxTree = GremlinBaseSyntaxTree & {
 };
 
 export type GremlinStringSyntaxTree = GremlinBaseSyntaxTree & {
-  type: 'string';
+  type: GremlinTokenType.String;
   string: string;
 };
 
 export type GremlinWordSyntaxTree = GremlinBaseSyntaxTree & {
-  type: 'word';
+  type: GremlinTokenType.Word;
   word: string;
 };
 

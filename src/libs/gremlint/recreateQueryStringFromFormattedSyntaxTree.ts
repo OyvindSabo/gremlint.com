@@ -1,10 +1,10 @@
-import { GremlinSyntaxTree } from './types';
+import { GremlinSyntaxTree, GremlinTokenType } from './types';
 import { spaces } from './utils';
 
 export const recreateQueryStringFromFormattedSyntaxTree = (
   syntaxTree: GremlinSyntaxTree,
-) => {
-  if (syntaxTree.type === 'traversal') {
+): string => {
+  if (syntaxTree.type === GremlinTokenType.Traversal) {
     return syntaxTree.stepGroups
       .map((stepGroup) =>
         stepGroup.steps
@@ -13,7 +13,7 @@ export const recreateQueryStringFromFormattedSyntaxTree = (
       )
       .join('\n');
   }
-  if (syntaxTree.type === 'method') {
+  if (syntaxTree.type === GremlinTokenType.Method) {
     return (
       (syntaxTree.shouldStartWithDot ? '.' : '') +
       [
@@ -28,10 +28,10 @@ export const recreateQueryStringFromFormattedSyntaxTree = (
       ].join(syntaxTree.argumentsShouldStartOnNewLine ? '\n' : '')
     );
   }
-  if (syntaxTree.type === 'string') {
+  if (syntaxTree.type === GremlinTokenType.String) {
     return spaces(syntaxTree.indentation) + syntaxTree.string;
   }
-  if (syntaxTree.type === 'word') {
+  if (syntaxTree.type === GremlinTokenType.Word) {
     return (
       spaces(syntaxTree.indentation) +
       (syntaxTree.shouldStartWithDot ? '.' : '') +
@@ -39,4 +39,7 @@ export const recreateQueryStringFromFormattedSyntaxTree = (
       (syntaxTree.shouldEndWithDot ? '.' : '')
     );
   }
+  // The following line is just here to convince TypeScript that the return type
+  // is string and not string | undefined.
+  return '';
 };

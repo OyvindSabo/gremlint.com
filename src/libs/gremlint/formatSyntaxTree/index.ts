@@ -1,4 +1,4 @@
-import { GremlinSyntaxTree, GremlintConfig } from '../types';
+import { GremlinSyntaxTree, GremlintConfig, GremlinTokenType } from '../types';
 import { formatMethod } from './formatMethod';
 import { formatString } from './formatString';
 import { formatTraversal } from './formatTraversal';
@@ -8,13 +8,13 @@ export const formatSyntaxTree = (config: GremlintConfig) => (
   syntaxTree: GremlinSyntaxTree,
 ) => {
   switch (syntaxTree.type) {
-    case 'traversal':
+    case GremlinTokenType.Traversal:
       return formatTraversal(formatSyntaxTree)(config)(syntaxTree);
-    case 'method':
+    case GremlinTokenType.Method:
       return formatMethod(formatSyntaxTree)(config)(syntaxTree);
-    case 'string':
+    case GremlinTokenType.String:
       return formatString(config)(syntaxTree);
-    case 'word':
+    case GremlinTokenType.Word:
       return formatWord(config)(syntaxTree);
   }
 };

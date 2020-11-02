@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import { dispatch } from '../../libs/reduced-state';
 import { useReducedState } from '../../libs/reduced-state/useReducedState';

@@ -4,6 +4,7 @@ import {
   GremlinSyntaxTree,
   GremlinSyntaxTreeFormatter,
   GremlintConfig,
+  GremlinTokenType,
 } from '../../../types';
 import { pipe } from '../../../utils';
 import {
@@ -57,7 +58,10 @@ export const getStepGroups = (
 
       const recreatedQueryWithSubsequentModulators = recreateQueryOnelinerFromSyntaxTree(
         config.indentation + stepGroupIndentationIncrease,
-      )({ type: 'traversal', steps: stepsWithSubsequentModulators });
+      )({
+        type: GremlinTokenType.Traversal,
+        steps: stepsWithSubsequentModulators,
+      });
 
       const lineIsTooLongWithSubsequentModulators =
         recreatedQueryWithSubsequentModulators.length > config.maxLineLength;
@@ -66,7 +70,7 @@ export const getStepGroups = (
       const shouldBeLastStepInStepGroup =
         isLastStep ||
         (isFirstStepInStepGroup && isModulator(step)) ||
-        (step.type === 'method' &&
+        (step.type === GremlinTokenType.Method &&
           !(nextStepIsModulator && !lineIsTooLongWithSubsequentModulators));
 
       // If it should be the last step in a line

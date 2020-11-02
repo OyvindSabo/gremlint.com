@@ -26,7 +26,9 @@ const QueryFormatter = () => {
     <div>
       <QueryInput
         value={state.queryInput}
-        onChange={({ target }) => dispatch(SET_QUERY_INPUT, target.value)}
+        onChange={({ target }) =>
+          dispatch(SET_QUERY_INPUT, (target as HTMLTextAreaElement).value)
+        }
       />
       <TextButton
         label={

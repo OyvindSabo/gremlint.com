@@ -7,10 +7,14 @@ import {
   SET_SHOULD_PLACE_DOTS_AFTER_LINE_BREAKS,
   TOGGLE_SHOULD_SHOW_ADVANCED_OPTIONS,
 } from './actions';
+import { State } from './types';
 
-const handleSetQueryInput = (state, queryInput) => ({ ...state, queryInput });
+const handleSetQueryInput = (state: State, queryInput: string) => ({
+  ...state,
+  queryInput,
+});
 
-const handleFormatQuery = (state) => ({
+const handleFormatQuery = (state: State) => ({
   ...state,
   queryOutput: formatQuery(state.queryInput, {
     indentation: state.indentation,
@@ -19,12 +23,12 @@ const handleFormatQuery = (state) => ({
   }),
 });
 
-const handleToggleShouldShowAdvancedOptions = (state) => ({
+const handleToggleShouldShowAdvancedOptions = (state: State) => ({
   ...state,
   shouldShowAdvancedOptions: !state.shouldShowAdvancedOptions,
 });
 
-const handleSetIndentation = (state, unparsedIndentation) => {
+const handleSetIndentation = (state: State, unparsedIndentation: string) => {
   const indentation = parseInt(unparsedIndentation);
   if (isNaN(indentation)) return { ...state };
   if (indentation < 0) return { ...state, indentation: 0 };
@@ -35,7 +39,10 @@ const handleSetIndentation = (state, unparsedIndentation) => {
   return { ...state, indentation };
 };
 
-const handleSetMaxLineLength = (state, unparsedMaxLineLength) => {
+const handleSetMaxLineLength = (
+  state: State,
+  unparsedMaxLineLength: string,
+) => {
   const maxLineLength = parseInt(unparsedMaxLineLength);
   if (isNaN(maxLineLength)) return { ...state };
   const { indentation } = state;
@@ -46,8 +53,8 @@ const handleSetMaxLineLength = (state, unparsedMaxLineLength) => {
 };
 
 const handleSetShouldPlaceDotsAfterLineBreaks = (
-  state,
-  shouldPlaceDotsAfterLineBreaks,
+  state: State,
+  shouldPlaceDotsAfterLineBreaks: boolean,
 ) => ({ ...state, shouldPlaceDotsAfterLineBreaks });
 
 const reducers = {
