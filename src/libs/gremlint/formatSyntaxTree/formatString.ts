@@ -1,10 +1,14 @@
-import { GremlintConfig, GremlinStringSyntaxTree } from '../types';
+import {
+  GremlintConfig,
+  GremlinStringSyntaxTree,
+  GremlinTokenType,
+} from '../types';
 
 export const formatString = (config: GremlintConfig) => (
   syntaxTree: GremlinStringSyntaxTree,
 ) => {
   return {
-    type: 'string',
+    type: GremlinTokenType.String,
     string: syntaxTree.string,
     indentation: config.indentation,
   };

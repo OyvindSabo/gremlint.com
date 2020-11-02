@@ -3,6 +3,7 @@ import {
   GremlinMethodSyntaxTree,
   GremlinSyntaxTreeFormatter,
   GremlintConfig,
+  GremlinTokenType,
 } from '../types';
 import { pipe } from '../utils';
 import {
@@ -21,7 +22,7 @@ export const formatMethod = (formatSyntaxTree: GremlinSyntaxTreeFormatter) => (
   )(syntaxTree);
   if (recreatedQuery.length <= config.maxLineLength) {
     return {
-      type: 'method',
+      type: GremlinTokenType.Method,
       method: formatSyntaxTree(withNoEndDotInfo(config))(syntaxTree.method),
       // The arguments property is here so that the resulted syntax tree can
       // still be understood by recreateQueryOnelinerFromSyntaxTree
@@ -40,7 +41,7 @@ export const formatMethod = (formatSyntaxTree: GremlinSyntaxTreeFormatter) => (
   // placed after the method parentheses. shouldStartWithDot has to be passed on
   // further down so the start dot can be placed after the indentation.
   return {
-    type: 'method',
+    type: GremlinTokenType.Method,
     method: formatSyntaxTree(withNoEndDotInfo(config))(syntaxTree.method),
     argumentGroups: syntaxTree.arguments.map((step) => [
       formatSyntaxTree(

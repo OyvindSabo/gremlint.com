@@ -2,6 +2,7 @@ import recreateQueryOnelinerFromSyntaxTree from '../../recreateQueryOnelinerFrom
 import {
   GremlinSyntaxTreeFormatter,
   GremlintConfig,
+  GremlinTokenType,
   GremlinTraversalSyntaxTree,
 } from '../../types';
 import { withZeroIndentation } from '../utils';
@@ -16,7 +17,7 @@ export const formatTraversal = (
   )(syntaxTree);
   if (recreatedQuery.length <= config.maxLineLength) {
     return {
-      type: 'traversal',
+      type: GremlinTokenType.Traversal,
       stepGroups: [
         {
           steps: syntaxTree.steps.map((step, stepIndex) =>
@@ -29,7 +30,7 @@ export const formatTraversal = (
     };
   }
   return {
-    type: 'traversal',
+    type: GremlinTokenType.Traversal,
     stepGroups: getStepGroups(formatSyntaxTree, syntaxTree.steps, config),
   };
 };
