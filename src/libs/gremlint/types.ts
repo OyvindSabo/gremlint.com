@@ -7,12 +7,6 @@ export type GremlintConfig = {
   shouldStartWithDot?: boolean;
 };
 
-export type GremlinBaseSyntaxTree = {
-  //shouldEndWithDot: boolean;
-  //shouldStartWithDot: boolean;
-  indentation: number;
-};
-
 export enum GremlinTokenType {
   Method = 'METHOD',
   String = 'STRING',
