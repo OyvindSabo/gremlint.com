@@ -8,8 +8,8 @@ export type GremlintConfig = {
 };
 
 export type GremlinBaseSyntaxTree = {
-  shouldEndWithDot: boolean;
-  shouldStartWithDot: boolean;
+  //shouldEndWithDot: boolean;
+  //shouldStartWithDot: boolean;
   indentation: number;
 };
 
@@ -47,38 +47,46 @@ export type UnformattedGremlinSyntaxTree =
   | UnformattedGremlinWordSyntaxTree
   | UnformattedGremlinTraversalSyntaxTree;
 
-export type GremlinStepGroup = { steps: GremlinSyntaxTree[] };
+export type GremlinStepGroup = { steps: FormattedGremlinSyntaxTree[] };
 
-export type GremlinTraversalSyntaxTree = GremlinBaseSyntaxTree & {
+export type FormattedGremlinTraversalSyntaxTree = {
   type: GremlinTokenType.Traversal;
-  steps: GremlinSyntaxTree[];
+  steps: UnformattedGremlinSyntaxTree[];
   stepGroups: GremlinStepGroup[];
+  indentation: number;
 };
 
-export type GremlinMethodSyntaxTree = GremlinBaseSyntaxTree & {
+export type FormattedGremlinMethodSyntaxTree = {
   type: GremlinTokenType.Method;
-  method: GremlinSyntaxTree;
-  arguments: GremlinSyntaxTree[];
-  argumentGroups: GremlinSyntaxTree[][];
+  method: FormattedGremlinSyntaxTree;
+  arguments: UnformattedGremlinSyntaxTree[];
+  argumentGroups: FormattedGremlinSyntaxTree[][];
   argumentsShouldStartOnNewLine: boolean;
+  indentation: number;
+  shouldStartWithDot: boolean;
+  shouldEndWithDot: boolean;
 };
 
-export type GremlinStringSyntaxTree = GremlinBaseSyntaxTree & {
+export type FormattedGremlinStringSyntaxTree = {
   type: GremlinTokenType.String;
   string: string;
+  indentation: number;
 };
 
-export type GremlinWordSyntaxTree = GremlinBaseSyntaxTree & {
+export type FormattedGremlinWordSyntaxTree = {
   type: GremlinTokenType.Word;
   word: string;
+  indentation: number;
+  shouldStartWithDot: boolean;
+  shouldEndWithDot: boolean;
 };
 
-export type GremlinSyntaxTree =
-  | GremlinTraversalSyntaxTree
-  | GremlinMethodSyntaxTree
-  | GremlinStringSyntaxTree
-  | GremlinWordSyntaxTree;
+export type FormattedGremlinSyntaxTree =
+  | FormattedGremlinTraversalSyntaxTree
+  | FormattedGremlinMethodSyntaxTree
+  | FormattedGremlinStringSyntaxTree
+  | FormattedGremlinWordSyntaxTree;
 
 export type GremlinSyntaxTreeFormatter = (
   config: GremlintConfig,
-) => (syntaxTree: GremlinSyntaxTree) => GremlinSyntaxTree;
+) => (syntaxTree: UnformattedGremlinSyntaxTree) => FormattedGremlinSyntaxTree;

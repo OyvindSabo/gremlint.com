@@ -1,35 +1,30 @@
 import {
-  GremlinMethodSyntaxTree,
-  GremlinStringSyntaxTree,
   GremlinTokenType,
-  GremlinTraversalSyntaxTree,
-  GremlinWordSyntaxTree,
+  UnformattedGremlinMethodSyntaxTree,
+  UnformattedGremlinStringSyntaxTree,
+  UnformattedGremlinTraversalSyntaxTree,
+  UnformattedGremlinWordSyntaxTree,
 } from './types';
 import { spaces } from './utils';
 
 type GremlinOnelinerSyntaxTree =
-  | Pick<GremlinTraversalSyntaxTree, 'type' | 'steps'>
-  | Pick<GremlinMethodSyntaxTree, 'type' | 'method' | 'arguments'>
-  | Pick<GremlinStringSyntaxTree, 'type' | 'string'>
-  | Pick<GremlinWordSyntaxTree, 'type' | 'word'>;
+  | Pick<UnformattedGremlinTraversalSyntaxTree, 'type' | 'steps'>
+  | Pick<UnformattedGremlinMethodSyntaxTree, 'type' | 'method' | 'arguments'>
+  | Pick<UnformattedGremlinStringSyntaxTree, 'type' | 'string'>
+  | Pick<UnformattedGremlinWordSyntaxTree, 'type' | 'word'>;
 
 const recreateQueryOnelinerFromSyntaxTree = (indentation: number = 0) => (
   syntaxTree: GremlinOnelinerSyntaxTree,
 ): string => {
   switch (syntaxTree.type) {
     case GremlinTokenType.Traversal:
-      return (
-        spaces(indentation) +
-        syntaxTree.steps.map(recreateQueryOnelinerFromSyntaxTree()).join('.')
-      );
+      return spaces(indentation) + syntaxTree.steps.map(recreateQueryOnelinerFromSyntaxTree()).join('.');
     case GremlinTokenType.Method:
       return (
         spaces(indentation) +
         recreateQueryOnelinerFromSyntaxTree()(syntaxTree.method) +
         '(' +
-        syntaxTree.arguments
-          .map(recreateQueryOnelinerFromSyntaxTree())
-          .join(', ') +
+        syntaxTree.arguments.map(recreateQueryOnelinerFromSyntaxTree()).join(', ') +
         ')'
       );
     case GremlinTokenType.String:

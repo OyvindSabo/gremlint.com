@@ -1,17 +1,18 @@
 import {
+  FormattedGremlinWordSyntaxTree,
   GremlintConfig,
   GremlinTokenType,
-  GremlinWordSyntaxTree,
+  UnformattedGremlinWordSyntaxTree,
 } from '../types';
 
 export const formatWord = (config: GremlintConfig) => (
-  syntaxTree: GremlinWordSyntaxTree,
-) => {
+  syntaxTree: UnformattedGremlinWordSyntaxTree,
+): FormattedGremlinWordSyntaxTree => {
   return {
     type: GremlinTokenType.Word,
     word: syntaxTree.word,
     indentation: config.indentation,
-    shouldStartWithDot: config.shouldStartWithDot,
-    shouldEndWithDot: config.shouldEndWithDot,
+    shouldStartWithDot: Boolean(config.shouldStartWithDot),
+    shouldEndWithDot: Boolean(config.shouldEndWithDot),
   };
 };

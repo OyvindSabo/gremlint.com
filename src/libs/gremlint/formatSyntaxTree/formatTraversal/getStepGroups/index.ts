@@ -1,22 +1,19 @@
 import recreateQueryOnelinerFromSyntaxTree from '../../../recreateQueryOnelinerFromSyntaxTree';
 import {
   GremlinStepGroup,
-  GremlinSyntaxTree,
+  FormattedGremlinSyntaxTree,
   GremlinSyntaxTreeFormatter,
   GremlintConfig,
   GremlinTokenType,
+  UnformattedGremlinSyntaxTree,
 } from '../../../types';
 import { pipe } from '../../../utils';
-import {
-  withDotInfo,
-  withIncreasedIndentation,
-  withZeroIndentation,
-} from '../../utils';
+import { withDotInfo, withIncreasedIndentation, withZeroIndentation } from '../../utils';
 import { isModulator, isTraversalSource } from './utils';
 
 export const getStepGroups = (
   formatSyntaxTree: GremlinSyntaxTreeFormatter,
-  steps: GremlinSyntaxTree[],
+  steps: UnformattedGremlinSyntaxTree[],
   config: GremlintConfig,
 ): GremlinStepGroup[] => {
   const { stepGroups } = steps.reduce(
@@ -44,15 +41,9 @@ export const getStepGroups = (
       ).stepsInStepGroup;
 
       const stepGroupIndentationIncrease = (() => {
-        const traversalSourceIndentationIncrease =
-          stepGroups[0] && isTraversalSource(stepGroups[0].steps[0]) ? 2 : 0;
-        const modulatorIndentationIncrease = isModulator(
-          [...stepsInStepGroup, step][0],
-        )
-          ? 2
-          : 0;
-        const indentationIncrease =
-          traversalSourceIndentationIncrease + modulatorIndentationIncrease;
+        const traversalSourceIndentationIncrease = stepGroups[0] && isTraversalSource(stepGroups[0].steps[0]) ? 2 : 0;
+        const modulatorIndentationIncrease = isModulator([...stepsInStepGroup, step][0]) ? 2 : 0;
+        const indentationIncrease = traversalSourceIndentationIncrease + modulatorIndentationIncrease;
         return indentationIncrease;
       })();
 
@@ -70,8 +61,7 @@ export const getStepGroups = (
       const shouldBeLastStepInStepGroup =
         isLastStep ||
         (isFirstStepInStepGroup && isModulator(step)) ||
-        (step.type === GremlinTokenType.Method &&
-          !(nextStepIsModulator && !lineIsTooLongWithSubsequentModulators));
+        (step.type === GremlinTokenType.Method && !(nextStepIsModulator && !lineIsTooLongWithSubsequentModulators));
 
       // If it should be the last step in a line
       // We don't want to newline after words which are not methods. For
@@ -83,23 +73,19 @@ export const getStepGroups = (
         // If it is the first (and last) step in a line, format it with
         // indentation, otherwise, remove the indentation
         if (isFirstStepInStepGroup) {
-          const traversalSourceIndentationIncrease =
-            stepGroups[0] && isTraversalSource(stepGroups[0].steps[0]) ? 2 : 0;
+          const traversalSourceIndentationIncrease = stepGroups[0] && isTraversalSource(stepGroups[0].steps[0]) ? 2 : 0;
           const modulatorIndentationIncrease = isModulator(step) ? 2 : 0;
-          const indentationIncrease =
-            traversalSourceIndentationIncrease + modulatorIndentationIncrease;
+          const indentationIncrease = traversalSourceIndentationIncrease + modulatorIndentationIncrease;
 
           // This is the only step in the step group, so it is the first step in
           // the step group. It should only start with a dot if it is not the
           // first stepGroup and config.shouldPlaceDotsAfterLineBreaks
-          const shouldStartWithDot =
-            !isFirstStepGroup && config.shouldPlaceDotsAfterLineBreaks;
+          const shouldStartWithDot = !isFirstStepGroup && config.shouldPlaceDotsAfterLineBreaks;
 
           // It is the last step in a group and should only end with dot if not
           // config.shouldPlaceDotsAfterLineBreaks this is not the last step in
           // steps
-          const shouldEndWithDot =
-            !isLastStepGroup && !config.shouldPlaceDotsAfterLineBreaks;
+          const shouldEndWithDot = !isLastStepGroup && !config.shouldPlaceDotsAfterLineBreaks;
 
           return {
             stepsInStepGroup: [],
@@ -127,8 +113,7 @@ export const getStepGroups = (
           // It is the last step in a group and should only end with dot if not
           // config.shouldPlaceDotsAfterLineBreaks this is not the last step in
           // steps
-          const shouldEndWithDot =
-            !isLastStepGroup && !config.shouldPlaceDotsAfterLineBreaks;
+          const shouldEndWithDot = !isLastStepGroup && !config.shouldPlaceDotsAfterLineBreaks;
 
           return {
             stepsInStepGroup: [],
@@ -138,10 +123,7 @@ export const getStepGroups = (
                 steps: [
                   ...stepsInStepGroup,
                   formatSyntaxTree(
-                    pipe(
-                      withZeroIndentation,
-                      withDotInfo({ shouldStartWithDot, shouldEndWithDot }),
-                    )(config),
+                    pipe(withZeroIndentation, withDotInfo({ shouldStartWithDot, shouldEndWithDot }))(config),
                   )(step),
                 ],
               },
@@ -153,15 +135,13 @@ export const getStepGroups = (
       // If it is the first step in a group and also not the last one, format it
       // with indentation, otherwise, remove the indentation
       if (isFirstStepInStepGroup) {
-        const indentationIncrease =
-          stepGroups[0] && isTraversalSource(stepGroups[0].steps[0]) ? 2 : 0;
+        const indentationIncrease = stepGroups[0] && isTraversalSource(stepGroups[0].steps[0]) ? 2 : 0;
 
         const isFirstStepGroup = stepGroups.length === 0;
 
         // It is the first step in a group and should start with a dot if it is
         // not the first stepGroup and config.shouldPlaceDotsAfterLineBreaks
-        const shouldStartWithDot =
-          !isFirstStepGroup && config.shouldPlaceDotsAfterLineBreaks;
+        const shouldStartWithDot = !isFirstStepGroup && config.shouldPlaceDotsAfterLineBreaks;
 
         // It is the first step in a group, but not the last, so it should not
         // end with a dot.
@@ -186,19 +166,16 @@ export const getStepGroups = (
         return {
           stepsInStepGroup: [
             ...stepsInStepGroup,
-            formatSyntaxTree(
-              pipe(
-                withZeroIndentation,
-                withDotInfo({ shouldStartWithDot, shouldEndWithDot }),
-              )(config),
-            )(step),
+            formatSyntaxTree(pipe(withZeroIndentation, withDotInfo({ shouldStartWithDot, shouldEndWithDot }))(config))(
+              step,
+            ),
           ],
           stepGroups,
         };
       })();
     },
     {
-      stepsInStepGroup: [] as GremlinSyntaxTree[],
+      stepsInStepGroup: [] as FormattedGremlinSyntaxTree[],
       stepGroups: [] as GremlinStepGroup[],
     },
   );
