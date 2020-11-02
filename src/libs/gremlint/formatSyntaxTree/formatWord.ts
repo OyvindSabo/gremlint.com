@@ -1,11 +1,11 @@
 import {
+  ExtendedGremlintConfig,
   FormattedGremlinWordSyntaxTree,
-  GremlintConfig,
   GremlinTokenType,
   UnformattedGremlinWordSyntaxTree,
 } from '../types';
 
-export const formatWord = (config: GremlintConfig) => (
+export const formatWord = (config: ExtendedGremlintConfig) => (
   syntaxTree: UnformattedGremlinWordSyntaxTree,
 ): FormattedGremlinWordSyntaxTree => {
   return {

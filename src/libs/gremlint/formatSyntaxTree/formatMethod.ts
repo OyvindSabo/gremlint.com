@@ -1,8 +1,8 @@
 import recreateQueryOnelinerFromSyntaxTree from '../recreateQueryOnelinerFromSyntaxTree';
 import {
+  ExtendedGremlintConfig,
   FormattedGremlinMethodSyntaxTree,
   GremlinSyntaxTreeFormatter,
-  GremlintConfig,
   GremlinTokenType,
   UnformattedGremlinMethodSyntaxTree,
 } from '../types';
@@ -10,7 +10,7 @@ import { pipe } from '../utils';
 import { withIncreasedIndentation, withNoEndDotInfo, withZeroDotInfo, withZeroIndentation } from './utils';
 
 // Groups arguments into argument groups an adds an indentation property
-export const formatMethod = (formatSyntaxTree: GremlinSyntaxTreeFormatter) => (config: GremlintConfig) => (
+export const formatMethod = (formatSyntaxTree: GremlinSyntaxTreeFormatter) => (config: ExtendedGremlintConfig) => (
   syntaxTree: UnformattedGremlinMethodSyntaxTree,
 ): FormattedGremlinMethodSyntaxTree => {
   const recreatedQuery = recreateQueryOnelinerFromSyntaxTree(config.indentation)(syntaxTree);

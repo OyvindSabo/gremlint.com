@@ -1,8 +1,10 @@
 export type GremlintConfig = {
   indentation: number;
-  // TODO: Finf out if the two properties below are needed here
   maxLineLength: number;
   shouldPlaceDotsAfterLineBreaks: boolean;
+};
+
+export type ExtendedGremlintConfig = GremlintConfig & {
   shouldEndWithDot?: boolean;
   shouldStartWithDot?: boolean;
 };

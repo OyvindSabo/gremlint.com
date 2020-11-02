@@ -45,10 +45,7 @@ const tokenizeOnTopLevelPunctuation = (query: string) => {
     }
     if (char === '.') {
       word +=
-        isInsideSingleQuoteString ||
-        parenthesesCount ||
-        squareBracketCount ||
-        curlyBracketCount
+        isInsideSingleQuoteString || parenthesesCount || squareBracketCount || curlyBracketCount
           ? '.'
           : String.fromCharCode(28);
       return;
@@ -105,10 +102,7 @@ const tokenizeOnTopLevelComma = (query: string) => {
     }
     if (char === ',') {
       word +=
-        isInsideSingleQuoteString ||
-        parenthesesCount ||
-        squareBracketCount ||
-        curlyBracketCount
+        isInsideSingleQuoteString || parenthesesCount || squareBracketCount || curlyBracketCount
           ? ','
           : String.fromCharCode(28);
       return;
@@ -189,11 +183,7 @@ const isString = (token: string) => {
 };
 
 const isMethodInvocation = (token: string) => {
-  return pipe(
-    tokenizeOnTopLevelParentheses,
-    last,
-    isWrappedInParentheses,
-  )(token);
+  return pipe(tokenizeOnTopLevelParentheses, last, isWrappedInParentheses)(token);
 };
 
 const trimParentheses = (expression: string) => expression.slice(1, -1);
@@ -206,24 +196,16 @@ const getMethodTokenAndArgumentTokensFromMethodInvocation = (token: string) => {
   const tokens = tokenizeOnTopLevelParentheses(token);
   return {
     methodToken: tokens.slice(0, -1).join(''),
-    argumentTokens: pipe(
-      trimParentheses,
-      tokenizeOnTopLevelComma,
-    )(tokens.slice(-1)[0]),
+    argumentTokens: pipe(trimParentheses, tokenizeOnTopLevelComma)(tokens.slice(-1)[0]),
   };
 };
 
-export const parseToSyntaxTree = (
-  query: string,
-): UnformattedGremlinSyntaxTree => {
+export const parseToSyntaxTree = (query: string): UnformattedGremlinSyntaxTree => {
   const tokens = tokenizeOnTopLevelPunctuation(query);
   if (tokens.length === 1) {
     const token = tokens[0];
     if (isMethodInvocation(token)) {
-      const {
-        methodToken,
-        argumentTokens,
-      } = getMethodTokenAndArgumentTokensFromMethodInvocation(token);
+      const { methodToken, argumentTokens } = getMethodTokenAndArgumentTokensFromMethodInvocation(token);
       return {
         type: GremlinTokenType.Method,
         method: parseToSyntaxTree(methodToken),
