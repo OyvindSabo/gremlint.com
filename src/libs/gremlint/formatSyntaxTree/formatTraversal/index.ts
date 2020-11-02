@@ -1,22 +1,22 @@
 import recreateQueryOnelinerFromSyntaxTree from '../../recreateQueryOnelinerFromSyntaxTree';
 import {
-  FormattedGremlinTraversalSyntaxTree,
+  FormattedTraversalSyntaxTree,
   GremlinSyntaxTreeFormatter,
   GremlintConfig,
-  GremlinTokenType,
-  UnformattedGremlinTraversalSyntaxTree,
+  TokenType,
+  UnformattedTraversalSyntaxTree,
 } from '../../types';
 import { withZeroIndentation } from '../utils';
 import { getStepGroups } from './getStepGroups';
 
 // Groups steps into step groups and adds an indentation property
 export const formatTraversal = (formatSyntaxTree: GremlinSyntaxTreeFormatter) => (config: GremlintConfig) => (
-  syntaxTree: UnformattedGremlinTraversalSyntaxTree,
-): FormattedGremlinTraversalSyntaxTree => {
+  syntaxTree: UnformattedTraversalSyntaxTree,
+): FormattedTraversalSyntaxTree => {
   const recreatedQuery = recreateQueryOnelinerFromSyntaxTree(config.indentation)(syntaxTree);
   if (recreatedQuery.length <= config.maxLineLength) {
     return {
-      type: GremlinTokenType.Traversal,
+      type: TokenType.Traversal,
       steps: syntaxTree.steps,
       stepGroups: [
         {
@@ -29,7 +29,7 @@ export const formatTraversal = (formatSyntaxTree: GremlinSyntaxTreeFormatter) =>
     };
   }
   return {
-    type: GremlinTokenType.Traversal,
+    type: TokenType.Traversal,
     steps: syntaxTree.steps,
     stepGroups: getStepGroups(formatSyntaxTree, syntaxTree.steps, config),
     indentation: 0,

@@ -1,11 +1,11 @@
 import recreateQueryOnelinerFromSyntaxTree from '../../../recreateQueryOnelinerFromSyntaxTree';
 import {
   GremlinStepGroup,
-  FormattedGremlinSyntaxTree,
+  FormattedSyntaxTree,
   GremlinSyntaxTreeFormatter,
   GremlintConfig,
-  GremlinTokenType,
-  UnformattedGremlinSyntaxTree,
+  TokenType,
+  UnformattedSyntaxTree,
 } from '../../../types';
 import { pipe } from '../../../utils';
 import { withDotInfo, withIncreasedIndentation, withZeroIndentation } from '../../utils';
@@ -13,7 +13,7 @@ import { isModulator, isTraversalSource } from './utils';
 
 export const getStepGroups = (
   formatSyntaxTree: GremlinSyntaxTreeFormatter,
-  steps: UnformattedGremlinSyntaxTree[],
+  steps: UnformattedSyntaxTree[],
   config: GremlintConfig,
 ): GremlinStepGroup[] => {
   const { stepGroups } = steps.reduce(
@@ -50,7 +50,7 @@ export const getStepGroups = (
       const recreatedQueryWithSubsequentModulators = recreateQueryOnelinerFromSyntaxTree(
         config.indentation + stepGroupIndentationIncrease,
       )({
-        type: GremlinTokenType.Traversal,
+        type: TokenType.Traversal,
         steps: stepsWithSubsequentModulators,
       });
 
@@ -61,7 +61,7 @@ export const getStepGroups = (
       const shouldBeLastStepInStepGroup =
         isLastStep ||
         (isFirstStepInStepGroup && isModulator(step)) ||
-        (step.type === GremlinTokenType.Method && !(nextStepIsModulator && !lineIsTooLongWithSubsequentModulators));
+        (step.type === TokenType.Method && !(nextStepIsModulator && !lineIsTooLongWithSubsequentModulators));
 
       // If it should be the last step in a line
       // We don't want to newline after words which are not methods. For
@@ -175,7 +175,7 @@ export const getStepGroups = (
       })();
     },
     {
-      stepsInStepGroup: [] as FormattedGremlinSyntaxTree[],
+      stepsInStepGroup: [] as FormattedSyntaxTree[],
       stepGroups: [] as GremlinStepGroup[],
     },
   );

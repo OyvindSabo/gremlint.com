@@ -9,80 +9,82 @@ export type ExtendedGremlintConfig = GremlintConfig & {
   shouldStartWithDot?: boolean;
 };
 
-export enum GremlinTokenType {
+export enum TokenType {
   Method = 'METHOD',
   String = 'STRING',
   Word = 'WORD',
   Traversal = 'TRAVERSAL',
 }
 
-export type UnformattedGremlinMethodSyntaxTree = {
-  type: GremlinTokenType.Method;
-  method: UnformattedGremlinSyntaxTree;
-  arguments: UnformattedGremlinSyntaxTree[];
+export type UnformattedTraversalSyntaxTree = {
+  type: TokenType.Traversal;
+  steps: UnformattedSyntaxTree[];
 };
 
-export type UnformattedGremlinStringSyntaxTree = {
-  type: GremlinTokenType.String;
+export type UnformattedMethodSyntaxTree = {
+  type: TokenType.Method;
+  method: UnformattedSyntaxTree;
+  arguments: UnformattedSyntaxTree[];
+};
+
+export type UnformattedStringSyntaxTree = {
+  type: TokenType.String;
   string: string;
 };
 
-export type UnformattedGremlinWordSyntaxTree = {
-  type: GremlinTokenType.Word;
+export type UnformattedWordSyntaxTree = {
+  type: TokenType.Word;
   word: string;
 };
 
-export type UnformattedGremlinTraversalSyntaxTree = {
-  type: GremlinTokenType.Traversal;
-  steps: UnformattedGremlinSyntaxTree[];
+export type UnformattedSyntaxTree =
+  | UnformattedMethodSyntaxTree
+  | UnformattedStringSyntaxTree
+  | UnformattedWordSyntaxTree
+  | UnformattedTraversalSyntaxTree;
+
+export type GremlinStepGroup = {
+  steps: FormattedSyntaxTree[];
 };
 
-export type UnformattedGremlinSyntaxTree =
-  | UnformattedGremlinMethodSyntaxTree
-  | UnformattedGremlinStringSyntaxTree
-  | UnformattedGremlinWordSyntaxTree
-  | UnformattedGremlinTraversalSyntaxTree;
-
-export type GremlinStepGroup = { steps: FormattedGremlinSyntaxTree[] };
-
-export type FormattedGremlinTraversalSyntaxTree = {
-  type: GremlinTokenType.Traversal;
-  steps: UnformattedGremlinSyntaxTree[];
+export type FormattedTraversalSyntaxTree = {
+  type: TokenType.Traversal;
+  steps: UnformattedSyntaxTree[];
   stepGroups: GremlinStepGroup[];
   indentation: number;
 };
 
-export type FormattedGremlinMethodSyntaxTree = {
-  type: GremlinTokenType.Method;
-  method: FormattedGremlinSyntaxTree;
-  arguments: UnformattedGremlinSyntaxTree[];
-  argumentGroups: FormattedGremlinSyntaxTree[][];
+export type FormattedMethodSyntaxTree = {
+  type: TokenType.Method;
+  method: FormattedSyntaxTree;
+  arguments: UnformattedSyntaxTree[];
+  argumentGroups: FormattedSyntaxTree[][];
   argumentsShouldStartOnNewLine: boolean;
   indentation: number;
   shouldStartWithDot: boolean;
   shouldEndWithDot: boolean;
 };
 
-export type FormattedGremlinStringSyntaxTree = {
-  type: GremlinTokenType.String;
+export type FormattedStringSyntaxTree = {
+  type: TokenType.String;
   string: string;
   indentation: number;
 };
 
-export type FormattedGremlinWordSyntaxTree = {
-  type: GremlinTokenType.Word;
+export type FormattedWordSyntaxTree = {
+  type: TokenType.Word;
   word: string;
   indentation: number;
   shouldStartWithDot: boolean;
   shouldEndWithDot: boolean;
 };
 
-export type FormattedGremlinSyntaxTree =
-  | FormattedGremlinTraversalSyntaxTree
-  | FormattedGremlinMethodSyntaxTree
-  | FormattedGremlinStringSyntaxTree
-  | FormattedGremlinWordSyntaxTree;
+export type FormattedSyntaxTree =
+  | FormattedTraversalSyntaxTree
+  | FormattedMethodSyntaxTree
+  | FormattedStringSyntaxTree
+  | FormattedWordSyntaxTree;
 
 export type GremlinSyntaxTreeFormatter = (
   config: GremlintConfig,
-) => (syntaxTree: UnformattedGremlinSyntaxTree) => FormattedGremlinSyntaxTree;
+) => (syntaxTree: UnformattedSyntaxTree) => FormattedSyntaxTree;

@@ -1,15 +1,10 @@
-import {
-  ExtendedGremlintConfig,
-  FormattedGremlinWordSyntaxTree,
-  GremlinTokenType,
-  UnformattedGremlinWordSyntaxTree,
-} from '../types';
+import { ExtendedGremlintConfig, FormattedWordSyntaxTree, TokenType, UnformattedWordSyntaxTree } from '../types';
 
 export const formatWord = (config: ExtendedGremlintConfig) => (
-  syntaxTree: UnformattedGremlinWordSyntaxTree,
-): FormattedGremlinWordSyntaxTree => {
+  syntaxTree: UnformattedWordSyntaxTree,
+): FormattedWordSyntaxTree => {
   return {
-    type: GremlinTokenType.Word,
+    type: TokenType.Word,
     word: syntaxTree.word,
     indentation: config.indentation,
     shouldStartWithDot: Boolean(config.shouldStartWithDot),

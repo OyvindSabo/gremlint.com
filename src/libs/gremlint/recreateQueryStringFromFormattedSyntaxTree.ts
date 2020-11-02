@@ -1,13 +1,13 @@
-import { FormattedGremlinSyntaxTree, GremlinTokenType } from './types';
+import { FormattedSyntaxTree, TokenType } from './types';
 import { spaces } from './utils';
 
-export const recreateQueryStringFromFormattedSyntaxTree = (syntaxTree: FormattedGremlinSyntaxTree): string => {
-  if (syntaxTree.type === GremlinTokenType.Traversal) {
+export const recreateQueryStringFromFormattedSyntaxTree = (syntaxTree: FormattedSyntaxTree): string => {
+  if (syntaxTree.type === TokenType.Traversal) {
     return syntaxTree.stepGroups
       .map((stepGroup) => stepGroup.steps.map(recreateQueryStringFromFormattedSyntaxTree).join('.'))
       .join('\n');
   }
-  if (syntaxTree.type === GremlinTokenType.Method) {
+  if (syntaxTree.type === TokenType.Method) {
     return (
       (syntaxTree.shouldStartWithDot ? '.' : '') +
       [
@@ -20,10 +20,10 @@ export const recreateQueryStringFromFormattedSyntaxTree = (syntaxTree: Formatted
       ].join(syntaxTree.argumentsShouldStartOnNewLine ? '\n' : '')
     );
   }
-  if (syntaxTree.type === GremlinTokenType.String) {
+  if (syntaxTree.type === TokenType.String) {
     return spaces(syntaxTree.indentation) + syntaxTree.string;
   }
-  if (syntaxTree.type === GremlinTokenType.Word) {
+  if (syntaxTree.type === TokenType.Word) {
     return (
       spaces(syntaxTree.indentation) +
       (syntaxTree.shouldStartWithDot ? '.' : '') +

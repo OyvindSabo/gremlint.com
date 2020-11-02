@@ -1,22 +1,22 @@
 import recreateQueryOnelinerFromSyntaxTree from '../recreateQueryOnelinerFromSyntaxTree';
 import {
   ExtendedGremlintConfig,
-  FormattedGremlinMethodSyntaxTree,
+  FormattedMethodSyntaxTree,
   GremlinSyntaxTreeFormatter,
-  GremlinTokenType,
-  UnformattedGremlinMethodSyntaxTree,
+  TokenType,
+  UnformattedMethodSyntaxTree,
 } from '../types';
 import { pipe } from '../utils';
 import { withIncreasedIndentation, withNoEndDotInfo, withZeroDotInfo, withZeroIndentation } from './utils';
 
 // Groups arguments into argument groups an adds an indentation property
 export const formatMethod = (formatSyntaxTree: GremlinSyntaxTreeFormatter) => (config: ExtendedGremlintConfig) => (
-  syntaxTree: UnformattedGremlinMethodSyntaxTree,
-): FormattedGremlinMethodSyntaxTree => {
+  syntaxTree: UnformattedMethodSyntaxTree,
+): FormattedMethodSyntaxTree => {
   const recreatedQuery = recreateQueryOnelinerFromSyntaxTree(config.indentation)(syntaxTree);
   if (recreatedQuery.length <= config.maxLineLength) {
     return {
-      type: GremlinTokenType.Method,
+      type: TokenType.Method,
       method: formatSyntaxTree(withNoEndDotInfo(config))(syntaxTree.method),
       // The arguments property is here so that the resulted syntax tree can
       // still be understood by recreateQueryOnelinerFromSyntaxTree
@@ -32,7 +32,7 @@ export const formatMethod = (formatSyntaxTree: GremlinSyntaxTreeFormatter) => (c
   // placed after the method parentheses. shouldStartWithDot has to be passed on
   // further down so the start dot can be placed after the indentation.
   return {
-    type: GremlinTokenType.Method,
+    type: TokenType.Method,
     method: formatSyntaxTree(withNoEndDotInfo(config))(syntaxTree.method),
     arguments: syntaxTree.arguments,
     argumentGroups: syntaxTree.arguments.map((step) => [

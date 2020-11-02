@@ -1,11 +1,11 @@
-import { FormattedGremlinSyntaxTree, GremlinTokenType, UnformattedGremlinSyntaxTree } from '../../../types';
+import { FormattedSyntaxTree, TokenType, UnformattedSyntaxTree } from '../../../types';
 
-export const isTraversalSource = (step: FormattedGremlinSyntaxTree): boolean =>
-  step.type === GremlinTokenType.Word && step.word === 'g';
+export const isTraversalSource = (step: FormattedSyntaxTree): boolean =>
+  step.type === TokenType.Word && step.word === 'g';
 
-export const isModulator = (step: UnformattedGremlinSyntaxTree | FormattedGremlinSyntaxTree): boolean =>
-  step.type === GremlinTokenType.Method &&
-  step.method.type === GremlinTokenType.Word &&
+export const isModulator = (step: UnformattedSyntaxTree | FormattedSyntaxTree): boolean =>
+  step.type === TokenType.Method &&
+  step.method.type === TokenType.Word &&
   [
     'as',
     'as_',
