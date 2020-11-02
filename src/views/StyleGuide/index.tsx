@@ -6,6 +6,7 @@ const StyleGuide = () => (
   <div>
     {rules.map(({ title, explanation, example }) => (
       <StyleGuideRule
+        key={title}
         title={title}
         explanation={explanation}
         example={example}
