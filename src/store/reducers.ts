@@ -1,4 +1,4 @@
-import { formatQuery } from '../libs/gremlint';
+import { formatQuery } from 'gremlint';
 import {
   FORMAT_QUERY,
   SET_INDENTATION,
@@ -39,10 +39,7 @@ const handleSetIndentation = (state: State, unparsedIndentation: string) => {
   return { ...state, indentation };
 };
 
-const handleSetMaxLineLength = (
-  state: State,
-  unparsedMaxLineLength: string,
-) => {
+const handleSetMaxLineLength = (state: State, unparsedMaxLineLength: string) => {
   const maxLineLength = parseInt(unparsedMaxLineLength);
   if (isNaN(maxLineLength)) return { ...state };
   const { indentation } = state;
@@ -52,10 +49,10 @@ const handleSetMaxLineLength = (
   return { ...state, maxLineLength };
 };
 
-const handleSetShouldPlaceDotsAfterLineBreaks = (
-  state: State,
-  shouldPlaceDotsAfterLineBreaks: boolean,
-) => ({ ...state, shouldPlaceDotsAfterLineBreaks });
+const handleSetShouldPlaceDotsAfterLineBreaks = (state: State, shouldPlaceDotsAfterLineBreaks: boolean) => ({
+  ...state,
+  shouldPlaceDotsAfterLineBreaks,
+});
 
 const reducers = {
   [SET_QUERY_INPUT]: handleSetQueryInput,
