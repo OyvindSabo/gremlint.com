@@ -1,6 +1,12 @@
-# Getting Started with Create React App
+![Gremlint Github Header 1920x1024](https://user-images.githubusercontent.com/25663729/88488788-d5a73700-cf8f-11ea-9adb-03d62c77c1b7.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### What is gremlint.com?
+
+Gremlint is a code formatting library which parses Gremlin queries and rewrites them to adhere to certain styling rules. It does so by parsing the query to an abstract syntax tree, and reprinting it from scratch. Gremlint.com is a website which utilizes the Gremlint library to give users an online "living" style guide for Gremlin queries. It also serves as a platform for showcasing the features of Gremlint.
+
+### Give it a try!
+
+https://gremlint.com
 
 ## Available Scripts
 
