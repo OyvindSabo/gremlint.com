@@ -1,24 +1,12 @@
 import { FormattedSyntaxTree, TokenType, UnformattedSyntaxTree } from '../../../types';
+import { STEP_MODULATORS } from '../../../consts';
 
-export const isTraversalSource = (step: FormattedSyntaxTree): boolean =>
-  step.type === TokenType.Word && step.word === 'g';
+export const isTraversalSource = (step: FormattedSyntaxTree): boolean => {
+  return step.type === TokenType.Word && step.word === 'g';
+};
 
-export const isModulator = (step: UnformattedSyntaxTree | FormattedSyntaxTree): boolean =>
-  step.type === TokenType.Method &&
-  step.method.type === TokenType.Word &&
-  [
-    'as',
-    'as_',
-    'by',
-    'emit',
-    'option',
-    'from',
-    'from_',
-    'to',
-    'read',
-    'times',
-    'until',
-    'with',
-    'with_',
-    'write',
-  ].includes(step.method.word);
+export const isModulator = (step: UnformattedSyntaxTree | FormattedSyntaxTree): boolean => {
+  if (step.type !== TokenType.Method) return false;
+  if (step.method.type !== TokenType.Word) return false;
+  return STEP_MODULATORS.includes(step.method.word);
+};
