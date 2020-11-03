@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { inputTextColor } from '../styleVariables';
 
@@ -23,9 +23,7 @@ const QueryInputTextArea = styled.textarea`
 `;
 
 type QueryInputProps = {
-  onChange?:
-    | ((event: React.ChangeEvent<HTMLTextAreaElement>) => void)
-    | undefined;
+  onChange?: ((event: React.ChangeEvent<HTMLTextAreaElement>) => void) | undefined;
   value: string;
 };
 

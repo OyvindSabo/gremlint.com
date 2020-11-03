@@ -6,15 +6,11 @@ import { pipe } from './utils';
 
 export const formatQuery = (
   query: string,
-  config: GremlintConfig = {
-    indentation: 0,
-    maxLineLength: 80,
-    shouldPlaceDotsAfterLineBreaks: false,
-  },
-) => {
+  { indentation = 0, maxLineLength = 80, shouldPlaceDotsAfterLineBreaks = false }: GremlintConfig,
+): string => {
   return pipe(
     parseToSyntaxTree,
-    formatSyntaxTree(config),
+    formatSyntaxTree({ indentation, maxLineLength, shouldPlaceDotsAfterLineBreaks }),
     recreateQueryStringFromFormattedSyntaxTree,
   )(query);
 };

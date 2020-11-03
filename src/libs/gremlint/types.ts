@@ -4,10 +4,12 @@ export type GremlintConfig = {
   shouldPlaceDotsAfterLineBreaks: boolean;
 };
 
-export type ExtendedGremlintConfig = GremlintConfig & {
+export type DotInfo = {
   shouldEndWithDot?: boolean;
   shouldStartWithDot?: boolean;
 };
+
+export type ExtendedGremlintConfig = GremlintConfig & DotInfo;
 
 export enum TokenType {
   Method = 'METHOD',

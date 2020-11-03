@@ -1,7 +1,7 @@
 import { TokenType, UnformattedSyntaxTree } from './types';
 import { last, pipe } from './utils';
 
-const tokenizeOnTopLevelPunctuation = (query: string) => {
+const tokenizeOnTopLevelPunctuation = (query: string): string[] => {
   let word = '';
   let parenthesesCount = 0;
   let squareBracketCount = 0;
@@ -58,7 +58,7 @@ const tokenizeOnTopLevelPunctuation = (query: string) => {
     .map((token) => token.trim());
 };
 
-const tokenizeOnTopLevelComma = (query: string) => {
+const tokenizeOnTopLevelComma = (query: string): string[] => {
   let word = '';
   let parenthesesCount = 0;
   let squareBracketCount = 0;
@@ -115,7 +115,7 @@ const tokenizeOnTopLevelComma = (query: string) => {
     .map((token) => token.trim());
 };
 
-const tokenizeOnTopLevelParentheses = (query: string) => {
+const tokenizeOnTopLevelParentheses = (query: string): string[] => {
   let word = '';
   let parenthesesCount = 0;
   let squareBracketCount = 0;
@@ -168,27 +168,29 @@ const tokenizeOnTopLevelParentheses = (query: string) => {
     .map((token) => token.trim());
 };
 
-const isWrappedInParentheses = (token: string) => {
+const isWrappedInParentheses = (token: string): boolean => {
   if (token.length < 2) return false;
   if (token.charAt(0) !== '(') return false;
   if (token.slice(-1) !== ')') return false;
   return true;
 };
 
-const isString = (token: string) => {
+const isString = (token: string): boolean => {
   if (token.length < 2) return false;
   if (token.charAt(0) !== token.substr(-1)) return false;
   if (['"', "'"].includes(token.charAt(0))) return true;
   return false;
 };
 
-const isMethodInvocation = (token: string) => {
+const isMethodInvocation = (token: string): boolean => {
   return pipe(tokenizeOnTopLevelParentheses, last, isWrappedInParentheses)(token);
 };
 
-const trimParentheses = (expression: string) => expression.slice(1, -1);
+const trimParentheses = (expression: string): string => expression.slice(1, -1);
 
-const getMethodTokenAndArgumentTokensFromMethodInvocation = (token: string) => {
+const getMethodTokenAndArgumentTokensFromMethodInvocation = (
+  token: string,
+): { methodToken: string; argumentTokens: string[] } => {
   // The word before the first parenthesis is the method name
   // The token may be a double application of a curried function, so we cannot
   // assume that the first opening parenthesis is closed by the last closing
