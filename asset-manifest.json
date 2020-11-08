@@ -5,17 +5,17 @@
     "main.js.map": "/gremlint.com/static/js/main.7d96dff9.chunk.js.map",
     "runtime-main.js": "/gremlint.com/static/js/runtime-main.41adb13b.js",
     "runtime-main.js.map": "/gremlint.com/static/js/runtime-main.41adb13b.js.map",
-    "static/js/2.e6784e84.chunk.js": "/gremlint.com/static/js/2.e6784e84.chunk.js",
-    "static/js/2.e6784e84.chunk.js.map": "/gremlint.com/static/js/2.e6784e84.chunk.js.map",
+    "static/js/2.9a41c6fc.chunk.js": "/gremlint.com/static/js/2.9a41c6fc.chunk.js",
+    "static/js/2.9a41c6fc.chunk.js.map": "/gremlint.com/static/js/2.9a41c6fc.chunk.js.map",
     "static/js/3.3fbdd361.chunk.js": "/gremlint.com/static/js/3.3fbdd361.chunk.js",
     "static/js/3.3fbdd361.chunk.js.map": "/gremlint.com/static/js/3.3fbdd361.chunk.js.map",
     "index.html": "/gremlint.com/index.html",
     "static/css/main.ab7136cd.chunk.css.map": "/gremlint.com/static/css/main.ab7136cd.chunk.css.map",
-    "static/js/2.e6784e84.chunk.js.LICENSE.txt": "/gremlint.com/static/js/2.e6784e84.chunk.js.LICENSE.txt"
+    "static/js/2.9a41c6fc.chunk.js.LICENSE.txt": "/gremlint.com/static/js/2.9a41c6fc.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.41adb13b.js",
-    "static/js/2.e6784e84.chunk.js",
+    "static/js/2.9a41c6fc.chunk.js",
     "static/css/main.ab7136cd.chunk.css",
     "static/js/main.7d96dff9.chunk.js"
   ]
