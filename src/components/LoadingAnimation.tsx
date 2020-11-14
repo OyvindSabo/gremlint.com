@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { white } from '../styleVariables';
+import gremlintLoadingLogoColored from '../gremlint-loading-logo-colored.png';
+import gremlintLoadingLogoGrayscale from '../gremlint-loading-logo-grayscale.png';
 
 const LoadingAnimationWrapper = styled.div`
   position: fixed;
@@ -62,27 +64,20 @@ const LoadingAnimation = ({ onLoadingComplete }: LoadingAnimationProps) => {
       },
       loadingCompletion === 0 ? 250 : 10,
     );
-  }, [
-    loadingCompletion,
-    coloredImageHasLoaded,
-    grayscaleImageHasLoaded,
-    onLoadingComplete,
-  ]);
+  }, [loadingCompletion, coloredImageHasLoaded, grayscaleImageHasLoaded, onLoadingComplete]);
 
   return (
     <LoadingAnimationWrapper>
       <GrayscaleImageWrapper>
         <Image
-          src="https://gremlint.com/wp-content/uploads/2020/07/Lowpoly-Gremlin-with-Text-Grayscale-1080x1080-1.png"
-          $opacity={
-            grayscaleImageHasLoaded && loadingCompletion !== 100 ? 1 : 0
-          }
+          src={gremlintLoadingLogoGrayscale}
+          $opacity={grayscaleImageHasLoaded && loadingCompletion !== 100 ? 1 : 0}
           onLoad={() => setGrayscaleImageHasLoaded(true)}
         />
       </GrayscaleImageWrapper>
       <ColoredImageWrapper $loadingCompletion={loadingCompletion}>
         <Image
-          src="https://gremlint.com/wp-content/uploads/2020/07/Lowpoly-Gremlin-with-Text-1080x1080-1.png"
+          src={gremlintLoadingLogoColored}
           $opacity={loadingCompletion !== 100 ? 1 : 0}
           onLoad={() => setColoredImageHasLoaded(true)}
         />
