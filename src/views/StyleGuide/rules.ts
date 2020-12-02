@@ -1,3 +1,22 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
 export const rules = [
   {
     title: 'Break long queries into multiple lines',
@@ -25,8 +44,7 @@ g.V().
   },
   {
     title: 'Use soft tabs (spaces) for indentation',
-    explanation:
-      'This ensures that your code looks the same for anyone, regardless of their text editor settings.',
+    explanation: 'This ensures that your code looks the same for anyone, regardless of their text editor settings.',
     example: `// Bad - indented using hard tabs
 g.V().
   hasLabel('person').as('person').
@@ -166,8 +184,7 @@ g.V().
     is(gt(1)))`,
   },
   {
-    title:
-      'Add linebreak and indentation for nested traversals which are long enough to span multiple lines',
+    title: 'Add linebreak and indentation for nested traversals which are long enough to span multiple lines',
     explanation: '',
     example: `// Bad - Not newlining the first argument of a function whose arguments span over multipe lines causes the arguments to not align.
 g.V().
@@ -204,8 +221,7 @@ g.V().
           constant("very old"))))`,
   },
   {
-    title:
-      'Place all trailing parentheses on a single line instead of distinct lines',
+    title: 'Place all trailing parentheses on a single line instead of distinct lines',
     explanation:
       'Aligning the end parenthesis with the step to which the start parenthesis belongs might make it easier to check that the number of parentheses is correct, but looks ugly and wastes a lot of space.',
     example: `// Bad
@@ -239,8 +255,7 @@ g.V().
           constant("very old"))))`,
   },
   {
-    title:
-      'Use // for single line comments. Place single line comments on a newline above the subject of the comment.',
+    title: 'Use // for single line comments. Place single line comments on a newline above the subject of the comment.',
     explanation: '',
     example: `// Bad
 g.V().

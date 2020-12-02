@@ -28,6 +28,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "author": "Øyvind Sæbø",
+  "license": "Apache-2.0",
   "eslintConfig": {
     "extends": [
       "react-app",
